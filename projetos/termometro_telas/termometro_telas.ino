@@ -2,10 +2,8 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #define dht_dpin A1
-
 dht DHT;
 LiquidCrystal_I2C lcd(0x3f, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
-
 int counter = 0;
 int botao;
 float maxt = 0, maxu = 0;
@@ -19,10 +17,8 @@ byte grau[8] = { B00001100,
                  B00000000,
                  B00000000,
                };
-
 void setup() {
   Serial.begin(9600);
-
   lcd.begin(16, 2);
   lcd.clear();
   lcd.createChar(0, grau);
@@ -40,7 +36,6 @@ void loop() {
   Serial.println(maxu);
   Serial.print("minu ");
   Serial.println(minu);
-
   DHT.read11(dht_dpin);
   if (maxt < DHT.temperature) {
     maxt = DHT.temperature;
@@ -55,7 +50,6 @@ void loop() {
     minu = DHT.humidity;
   }
   switch (counter) {
-
     case 0:
       lcd.clear();
       lcd.setCursor(0, 0);
@@ -72,7 +66,6 @@ void loop() {
       lcd.print("%");
       delay(10000);
       break;
-
     case 1:
       lcd.clear();
       lcd.setCursor(0, 0);
@@ -89,7 +82,6 @@ void loop() {
       lcd.print((char)0);
       delay(5000);
       break;
-
     case 2:
       lcd.clear();
       lcd.setCursor(0, 0);
@@ -107,18 +99,15 @@ void loop() {
       delay(5000);
       break;
   }
-
   botao = digitalRead(2);
- // while (botao == 1) {
-    if (botao == 1) {
-      if (counter < 2) {
-        counter++;
-        delay(1000);
-      }
-      else {
-        counter = 0;
-        delay(1000);
-      }
+  if (botao == 1) {
+    if (counter < 2) {
+      counter++;
+      delay(1000);
     }
- // }
+    else {
+      counter = 0;
+      delay(1000);
+    }
+  }
 }
