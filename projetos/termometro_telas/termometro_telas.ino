@@ -5,7 +5,6 @@
 dht DHT;
 LiquidCrystal_I2C lcd(0x3f, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 int counter = 0;
-int botao;
 float maxt = 0, maxu = 0;
 float mint = 100, minu = 100;
 byte grau[8] = { B00001100,
@@ -22,7 +21,6 @@ void setup() {
   lcd.begin(16, 2);
   lcd.clear();
   lcd.createChar(0, grau);
-  pinMode(2, INPUT_PULLUP);
 }
 void loop() {
   Serial.println("");
@@ -80,7 +78,7 @@ void loop() {
       lcd.print(mint, 1);
       lcd.setCursor(13, 1);
       lcd.print((char)0);
-      delay(5000);
+      delay(3000);
       break;
     case 2:
       lcd.clear();
@@ -96,18 +94,11 @@ void loop() {
       lcd.print(minu, 1);
       lcd.setCursor(13, 1);
       lcd.print("%");
-      delay(5000);
+      delay(3000);
       break;
   }
-  botao = digitalRead(2);
-  if (botao == 1) {
-    if (counter < 2) {
-      counter++;
-      delay(1000);
-    }
-    else {
-      counter = 0;
-      delay(1000);
-    }
+  counter++;
+  if (counter == 3) {
+    counter = 0;
   }
 }
