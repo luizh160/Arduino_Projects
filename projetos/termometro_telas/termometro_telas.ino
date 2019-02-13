@@ -5,6 +5,8 @@
 dht DHT;
 LiquidCrystal_I2C lcd(0x3f, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 int counter = 0;
+int botao = 8;
+int estbt;
 float maxt = 0, maxu = 0;
 float mint = 100, minu = 100;
 byte grau[8] = { B00001100,
@@ -21,6 +23,7 @@ void setup() {
   lcd.begin(16, 2);
   lcd.clear();
   lcd.createChar(0, grau);
+  pinMode(botao,INPUT);
 }
 void loop() {
   Serial.println("");
